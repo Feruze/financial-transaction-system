@@ -1,0 +1,1 @@
+/home/samdev/financial-transaction-system/target/wasm32-unknown-unknown/release/icp_rust_boilerplate_backend.wasm: /home/samdev/financial-transaction-system/src/icp_rust_boilerplate_backend/src/lib.rs

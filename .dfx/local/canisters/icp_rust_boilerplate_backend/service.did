@@ -1,0 +1,40 @@
+type Account = record {
+  id : nat64;
+  holder_name : text;
+  balance : float64;
+  created_at : nat64;
+};
+type Error = variant {
+  NotFound : record { msg : text };
+  InsufficientFunds : record { msg : text };
+};
+type Result = variant { Ok; Err : Error };
+type Result_1 = variant { Ok : Account; Err : Error };
+type Result_2 = variant { Ok : float64; Err : Error };
+type Result_3 = variant { Ok : nat64; Err : Error };
+type Result_4 = variant { Ok : vec Transaction; Err : Error };
+type Result_5 = variant { Ok : Transaction; Err : Error };
+type Transaction = record {
+  receiver_id : nat64;
+  sender_id : nat64;
+  timestamp : nat64;
+  amount : float64;
+};
+type TransferPayload = record {
+  receiver_id : nat64;
+  sender_id : nat64;
+  amount : float64;
+};
+service : {
+  create_account : (text, float64) -> (opt Account);
+  delete_account : (nat64) -> (Result);
+  get_account : (nat64) -> (Result_1) query;
+  get_account_balance : (nat64) -> (Result_2) query;
+  get_account_created_at : (nat64) -> (Result_3) query;
+  get_all_accounts : () -> (vec Account) query;
+  get_all_transactions : () -> (Result_4) query;
+  get_receiver_account : (nat64) -> (Result_1) query;
+  get_sender_account : (nat64) -> (Result_1) query;
+  transfer_funds : (TransferPayload) -> (Result_5);
+  update_account_holder_name : (nat64, text) -> (Result);
+}
